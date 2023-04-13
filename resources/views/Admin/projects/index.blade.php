@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <table class="table table-primary table-striped mt-5">
+    <div class="d-flex mt-3 justify-content-end">
+        <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">Create new project</a>
+    </div>
+    <table class="table table-primary table-striped mt-2">
         <thead>
             <tr>
                 <th scope="col">ID</th>

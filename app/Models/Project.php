@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+
+    protected $fillable = [
+        "title",
+        "languages",
+        "pic",
+        "description",
+        "link"
+    ];
+
     use HasFactory;
 }
