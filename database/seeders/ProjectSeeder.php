@@ -23,7 +23,7 @@ class ProjectSeeder extends Seeder
             $project = new Project();
 
             $project->title = $faker->catchPhrase();
-            $project->pic = 'https://picsum.photos/200';
+            // $project->pic = 'https://picsum.photos/200';
             $project->description = $faker->paragraph(20);
             $project->languages = $faker->randomElement(['PHP', 'HTML', 'Javascript']);
             $project->link = $faker->url();

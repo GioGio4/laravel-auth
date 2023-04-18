@@ -6,7 +6,8 @@
         <div class="row g-0">
             <div class="col-md-12">
                 <div class="card-body">
-                    <form action="{{ route('admin.projects.update', $project) }}" method="POST" class="row g-3">
+                    <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data"
+                        class="row g-3">
                         @method('put')
                         @csrf
 
@@ -61,14 +62,13 @@
                         </div>
 
                         <div class="col-2">
-                            <img src="{{ old('pic') ?? $project->pic }}" alt="project-image" class="form-box-img">
+                            <img src="{{ $project->getImageUri() }}" alt="project-image" class="form-box-img ">
                         </div>
 
                         <div class="col-12">
                             <label for="pic" class="form-label"><strong>Image</strong></label>
-                            <input type="text" name="pic" id="pic"
-                                class="form-control @error('pic') is-invalid @enderror"
-                                value="{{ old('pic') ?? $project->pic }}">
+                            <input type="file" name="pic" id="pic"
+                                class="form-control @error('pic') is-invalid @enderror">
                             @error('pic')
                                 <div class="invalid-feedback">
                                     {{ $message }}

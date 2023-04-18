@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
@@ -41,7 +43,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        //*  Validazione 
         $data = $this->validation($request->all());
+
+        //* Metodo caricamento immagine 
+        if (Arr::exists($data, 'pic')) {
+
+            $img_path = Storage::put('uploads/projects', $data['pic']);
+            $data['pic'] =  $img_path;
+        }
 
         $project = new Project;
         $project->fill($data);
@@ -83,8 +93,15 @@ class ProjectController extends Controller
     {
         $data = $this->validation($request->all());
 
+        //* Metodo caricamento immagine   
+        if (Arr::exists($data, 'pic')) {
+            if ($project->pic) Storage::delete($project->pic);
+            $img_path = Storage::put('uploads/projects', $data['pic']);
+            $data['pic'] =  $img_path;
+        }
+
         $project->update($data);
-        return redirect()->route('admin.projects.show', $project);
+        return to_route('admin.projects.show', $project);
     }
 
     /**
@@ -95,7 +112,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->pic) Storage::delete($project->pic);
         $project->delete();
+
 
         return to_route('admin.projects.index');
     }
@@ -109,7 +128,7 @@ class ProjectController extends Controller
             $data,
             [
                 'title'  => 'required|string|max:100',
-                'pic' => 'nullable|string',
+                'pic' => 'nullable|image|mimes:png,jpg,jpeg',
                 'description' => 'required|string',
                 'languages' => 'required',
                 'link' => 'nullable|string'
@@ -120,11 +139,12 @@ class ProjectController extends Controller
                 'languages.required' => 'il campo è richiesto',
 
                 'title.string' => 'il campo deve essere una stringa',
-                'pic.string' => 'il campo deve essere una stringa',
+                'pic.image' => 'Il file caricato deve essere un immagine',
                 'description.string' => 'il campo deve essere una stringa',
                 'link.string' => 'il campo deve essere una stringa',
 
                 'title.max' => 'il campo deve avere massimo 100 caratteri',
+                'pic.mimes' => 'Le estensioni accettate sono:png,jpg,jpeg',
             ]
         )->validate();
         return $validator;

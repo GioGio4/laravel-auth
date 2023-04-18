@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         "title",
@@ -16,5 +17,8 @@ class Project extends Model
         "link"
     ];
 
-    use HasFactory;
+    public function getImageUri()
+    {
+        return $this->pic ? asset('storage/' . $this->pic) : 'https://thumbs.dreamstime.com/b/no-image-available-icon-vector-illustration-flat-design-140476186.jpg';
+    }
 }

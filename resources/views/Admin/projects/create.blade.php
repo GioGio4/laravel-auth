@@ -6,7 +6,8 @@
         <div class="row g-0">
             <div class="col-md-12">
                 <div class="card-body">
-                    <form action="{{ route('admin.projects.store') }}" method="post" class="row g-3">
+                    <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data"
+                        class="row g-3">
                         @csrf
 
                         <div class="col-5">
@@ -45,8 +46,7 @@
                         <div class="col-10">
                             <label for="description" class="form-label"><strong>Description</strong></label>
                             <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
-                                rows="6">{{ old('description') }}
-                        </textarea>
+                                rows="6">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -54,14 +54,14 @@
                             @enderror
                         </div>
 
-                        <div class="col-2 {{ old('pic') == '' ? 'd-none' : '' }}">
+                        <div class="col-2">
                             <img src="{{ old('pic') }}" alt="project-image" class="form-box-img">
                         </div>
 
                         <div class="col-12">
                             <label for="pic" class="form-label"><strong>Image</strong></label>
-                            <input type="url" name="pic" id="pic"
-                                class="form-control @error('pic') is-invalid @enderror" value="{{ old('pic') }}">
+                            <input type="file" name="pic" id="pic"
+                                class="form-control @error('pic') is-invalid @enderror">
                             @error('pic')
                                 <div class="invalid-feedback">
                                     {{ $message }}

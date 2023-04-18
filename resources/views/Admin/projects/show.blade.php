@@ -11,8 +11,10 @@
                     <p class="card-text"><strong>Description - </strong> {{ $project->description }}</p>
                     <p class="card-text"><strong>Languages - </strong> {{ $project->languages }}</p>
                     <p class="card-text"><strong>Project link - </strong> {{ $project->link }}</p>
-                    <p class="card-text"><strong>Image url - </strong><a href="{{ $project->pic }}">{{ $project->pic }}</a>
-                    </p>
+                    <p class="card-text"><strong>Image - </strong></p>
+                    <div class="col-2">
+                        <img src="{{ $project->getImageUri() }}" alt="project-image" class="form-box-img ">
+                    </div>
                     <p class="card-text"><strong>Create - </strong> {{ $project->created_at }}</p>
                     <p class="card-text"><strong>Last update - </strong> {{ $project->updated_at }}</p>
                     <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-secondary">Edit</a>
