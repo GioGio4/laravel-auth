@@ -2,16 +2,47 @@
 
 @section('content')
     <div class="d-flex mt-3 justify-content-end">
-        <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">Create new project</a>
+        <a href="{{ route('admin.projects.create') }}" class="btn btn-primary mt-3">Create new project</a>
     </div>
-    <table class="table table-primary table-striped mt-2">
+    <table class="table table-primary table-striped mt-3">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Title</th>
-                <th scope="col">Languages</th>
-                <th scope="col">Created</th>
-                <th scope="col">Updated</th>
+                <th scope="col"><a
+                        href="{{ route('admin.projects.index') }}?sort=id&order=@if ($sort == 'id' && $order != 'DESC') DESC @else ASC @endif">ID
+                        @if ($sort == 'id')
+                            <i class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col"><a
+                        href="{{ route('admin.projects.index') }}?sort=title&order=@if ($sort == 'title' && $order != 'DESC') DESC @else ASC @endif">Title
+                        @if ($sort == 'title')
+                            <i class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col"><a
+                        href="{{ route('admin.projects.index') }}?sort=languages&order=@if ($sort == 'languages' && $order != 'DESC') DESC @else ASC @endif">Languages
+                        @if ($sort == 'languages')
+                            <i class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate @endif"></i>
+                        @endif
+                    </a>
+                </th>
+
+                <th scope="col"><a
+                        href="{{ route('admin.projects.index') }}?sort=created_at&order=@if ($sort == 'created_at' && $order != 'DESC') DESC @else ASC @endif">Created
+                        @if ($sort == 'created_at')
+                            <i class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col"><a
+                        href="{{ route('admin.projects.index') }}?sort=updated_at&order=@if ($sort == 'updated_at' && $order != 'DESC') DESC @else ASC @endif">Updated
+                        @if ($sort == 'updated_at')
+                            <i class="bi bi-arrow-down d-inline-block @if ($order == 'DESC') rotate @endif"></i>
+                        @endif
+                    </a>
+                </th>
                 <th scope="col"></th>
             </tr>
         </thead>
