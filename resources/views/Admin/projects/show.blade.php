@@ -15,9 +15,13 @@
                     </p>
                     <p class="card-text"><strong>Create - </strong> {{ $project->created_at }}</p>
                     <p class="card-text"><strong>Last update - </strong> {{ $project->updated_at }}</p>
+                    <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-secondary">Edit</a>
+
                 </div>
             </div>
         </div>
     </div>
-    <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Return to projects</a>
+    <div class="d-flex mt-3 justify-content-end">
+        <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Return to projects</a>
+    </div>
 @endsection

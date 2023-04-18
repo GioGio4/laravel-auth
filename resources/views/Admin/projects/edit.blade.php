@@ -6,67 +6,89 @@
         <div class="row g-0">
             <div class="col-md-12">
                 <div class="card-body">
-                    <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+                    <form action="{{ route('admin.projects.update', $project) }}" method="POST" class="row g-3">
                         @method('put')
                         @csrf
 
-                        <label for="title" class="form-label">Title</label>
-                        <input type="text" name="title" id="title"
-                            class="form-control @error('title') is-invalid @enderror"
-                            value="{{ old('title') ?? $project->title }}">
-                        @error('title')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="col-5">
+                            <label for="title" class="form-label"><strong>Title</strong></label>
+                            <input type="text" name="title" id="title"
+                                class="form-control @error('title') is-invalid @enderror"
+                                value="{{ old('title') ?? $project->title }}">
+                            @error('title')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
-                        <label for="languages" class="form-label">Languages</label>
-                        <select class="form-select" aria-label="Default select example" name="languages" id="languages">
+                        <div class="col-5">
+                            <label for="link" class="form-label"><strong>Project link</strong></label>
+                            <input type="text" name="link" id="link"
+                                class="form-control @error('link') is-invalid @enderror"
+                                value="{{ old('link') ?? $project->link }}">
+                            @error('link')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
-                            <option value="php"@if (old('languages') == 'php') {{ 'selected' }} @endif>PHP
-                            </option>
-                            <option value="html"@if (old('languages') == 'html') {{ 'selected' }} @endif>HTML
-                            </option>
-                            <option value="javascript"@if (old('languages') == 'javascript') {{ 'selected' }} @endif>
-                                Javascript
-                            </option>
-                        </select>
+                        <div class="col-2">
+                            <label for="languages" class="form-label"><strong>Languages</strong></label>
+                            <select class="form-select" aria-label="Default select example" name="languages" id="languages">
 
-                        <label for="pic" class="form-label">Image</label>
-                        <input type="text" name="pic" id="pic"
-                            class="form-control @error('pic') is-invalid @enderror"
-                            value="{{ old('pic') ?? $project->pic }}">
-                        @error('pic')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                                <option value="php"@if (old('languages') == 'php') {{ 'selected' }} @endif>PHP
+                                </option>
+                                <option value="html"@if (old('languages') == 'html') {{ 'selected' }} @endif>HTML
+                                </option>
+                                <option value="javascript"@if (old('languages') == 'javascript') {{ 'selected' }} @endif>
+                                    Javascript
+                                </option>
+                            </select>
+                        </div>
 
-                        <label for="description" class="form-label">Description</label>
-                        <input type="text" name="description" id="description"
-                            class="form-control @error('description') is-invalid @enderror"
-                            value="{{ old('description') ?? $project->description }}">
-                        @error('description')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="col-10">
+                            <label for="description" class="form-label"><strong>Description</strong></label>
+                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                                rows="6">{{ old('description') ?? $project->description }}
+                            </textarea>
+                            @error('description')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
-                        <label for="link" class="form-label">Link</label>
-                        <input type="text" name="link" id="link"
-                            class="form-control @error('link') is-invalid @enderror"
-                            value="{{ old('link') ?? $project->link }}">
-                        @error('link')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="col-2">
+                            <img src="{{ old('pic') ?? $project->pic }}" alt="project-image" class="form-box-img">
+                        </div>
 
-                        <input type="submit" value="Save" class="btn btn-primary mt-3">
-                        <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary mt-3">Discard change</a>
+                        <div class="col-12">
+                            <label for="pic" class="form-label"><strong>Image</strong></label>
+                            <input type="text" name="pic" id="pic"
+                                class="form-control @error('pic') is-invalid @enderror"
+                                value="{{ old('pic') ?? $project->pic }}">
+                            @error('pic')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+
+
+                        <div class="col-auto">
+                            <input type="submit" value="Save" class="btn btn-primary mt-3">
+                            <a href="{{ route('admin.projects.show', $project) }}" class="btn btn-secondary mt-3">Discard
+                                change</a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="d-flex mt-3 justify-content-end">
+        <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Return to projects</a>
     </div>
 @endsection
