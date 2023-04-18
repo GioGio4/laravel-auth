@@ -26,6 +26,8 @@
                     <td>{{ $project->updated_at }}</td>
                     <td>
                         <a href="{{ route('admin.projects.show', $project) }}"><i class="bi bi-eye-fill"></i></a>
+                        <a href="{{ route('admin.projects.edit', $project) }}" class="action-icon"><i
+                                class="bi bi-pencil mx-2"></i></a>
                     </td>
                 </tr>
             @empty
