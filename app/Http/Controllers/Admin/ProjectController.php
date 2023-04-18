@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -38,8 +39,10 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $this->validation($request->all());
+
         $project = new Project;
-        $project->fill($request->all());
+        $project->fill($data);
         $project->save();
 
         return to_route('admin.projects.show', $project);
@@ -88,5 +91,35 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    //   Validazione 
+
+    private function validation($data)
+    {
+        $validator = Validator::make(
+
+            $data,
+            [
+                'title'  => 'required|string|max:100',
+                'pic' => 'nullable|string',
+                'description' => 'required|string',
+                'languages' => 'required',
+                'link' => 'nullable|string'
+            ],
+            [
+                'title.required' => 'il campo è richiesto',
+                'description.required' => 'il campo è richiesto',
+                'languages.required' => 'il campo è richiesto',
+
+                'title.string' => 'il campo deve essere una stringa',
+                'pic.string' => 'il campo deve essere una stringa',
+                'description.string' => 'il campo deve essere una stringa',
+                'link.string' => 'il campo deve essere una stringa',
+
+                'title.max' => 'il campo deve avere massimo 100 caratteri',
+            ]
+        )->validate();
+        return $validator;
     }
 }
